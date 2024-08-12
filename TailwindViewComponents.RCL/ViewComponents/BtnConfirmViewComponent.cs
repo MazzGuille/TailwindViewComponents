@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TailwindViewComponents.RCL.Models;
 using TailwindViewComponents.RCL.Services.Buttons;
 
 namespace TailwindViewComponents.RCL.ViewComponents;
-public class BtnConfirmViewComponent : ViewComponent
+public class BtnConfirmViewComponent(IBtnService btnService) : ViewComponent
 {
-    private readonly IBtnService _btnService;
-
-    public BtnConfirmViewComponent(IBtnService btnService)
-    {
-        _btnService = btnService;
-    }
+    private readonly IBtnService _btnService = btnService;
 
     public IViewComponentResult Invoke(string btnId, string btnContent)
     {

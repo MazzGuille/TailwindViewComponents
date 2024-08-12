@@ -2,14 +2,9 @@
 using TailwindViewComponents.RCL.Services.Buttons;
 
 namespace TailwindViewComponents.RCL.ViewComponents;
-public class BtnCancelViewComponent : ViewComponent
+public class BtnCancelViewComponent(IBtnService btnService) : ViewComponent
 {
-    private readonly IBtnService _btnService;
-
-    public BtnCancelViewComponent(IBtnService btnService)
-    {
-        _btnService = btnService;
-    }
+    private readonly IBtnService _btnService = btnService;
 
     public IViewComponentResult Invoke(string btnId, string btnContent)
     {
