@@ -10,8 +10,4 @@
     <ProjectReference Include="..\TailwindViewComponents.RCL\TailwindViewComponents.RCL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Shared\" />
-  </ItemGroup>
-
 </Project>
