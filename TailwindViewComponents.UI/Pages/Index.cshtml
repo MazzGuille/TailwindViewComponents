@@ -2,52 +2,63 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-
-    var BtnConfirm = new BtnModel
-    {
-        BtnContent = "TailWind Btn",
-        BtnId = "ConfrimBtn"
-    };
-
-    var BtnCancel = new BtnLocalModel
-    {
-        BtnContent = "LocalTailwindBtn",
-        BtnId = "CancelBtn"
-    };
 }
 
 <div class="text-center">
     <h1 class="mt-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>  
-    @await Component.InvokeAsync("BtnConfirm", new { Model = BtnConfirm })
-    @await Component.InvokeAsync("BtnCancel", new { Model = BtnCancel })
+    <div id="confirmBtn"></div>
+    <br />
+    <div id="cancelBtn"></div>
 </div>
 
 <script>
         document.addEventListener('DOMContentLoaded', () => {
-            var button = document.getElementById('ConfrimBtn');
-            var buttonCancel = document.getElementById('CancelBtn');
 
-            if (button) {
-                button.addEventListener('click', () => {
-                    HandleButtonClick();
-                    return;
-                });
-            }   
-            
-            if (buttonCancel) {
-                buttonCancel.addEventListener('click', () => {
-                    HandleCancelButtonClick();
-                    return;
-                });
-            } 
+            $.ajax({
+                url: 'Btn/GetCancelBtn', 
+                type: 'GET',
+                data: {btnId: 'AjaxCancelBtn', btnContent: 'AjxBtn'},
+                success: function (result) {
+                    $('#cancelBtn').html(result);  
+                    var buttonAjax = document.getElementById('AjaxCancelBtn');
+                    if (buttonAjax) {
+                        buttonAjax.addEventListener('click', () => {
+                            HandleAjaxButtonClick();
+                            return;
+                        });
+                    } 
+                },
+                error: function(error){
+                    console.error('Error al cargar el boton', error);              
+                }
+            })
+
+            $.ajax({
+                url: 'Btn/GetConfirmBtn', 
+                type: 'GET',
+                data: {btnId: 'AjaxConfirmBtn', btnContent: 'AjxBtnConf'},
+                success: function (result) {
+                    $('#confirmBtn').html(result);  
+                    var buttonAjaxConf = document.getElementById('AjaxConfirmBtn');
+                    if (buttonAjaxConf) {
+                        buttonAjaxConf.addEventListener('click', () => {
+                            HandleAjaxButtonConfirm();
+                            return;
+                        });
+                    } 
+                },
+                error: function(error){
+                    console.error('Error al cargar el boton', error);              
+                }
+            })           
         });
 
-        function HandleButtonClick() {
+        function HandleAjaxButtonConfirm() {
                 alert('Button clicked!');
         }
 
-        function HandleCancelButtonClick() {
-                alert('Cancel Button clicked!');
+        function HandleAjaxButtonClick() {
+                alert('Ajax Button clicked!');
         }
     </script>

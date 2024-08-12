@@ -1,7 +1,15 @@
+using TailwindViewComponents.RCL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+// Necesary for using controllers
+builder.Services.AddControllersWithViews();
+
+//Call service container from RCL project
+builder.Services.DepencyRCL();
 
 var app = builder.Build();
 
@@ -21,5 +29,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+app.MapControllers();
 
 app.Run();
